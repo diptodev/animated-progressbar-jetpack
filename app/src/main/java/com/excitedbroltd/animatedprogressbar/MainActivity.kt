@@ -15,6 +15,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 
 class MainActivity : ComponentActivity() {
+    private val TAG = "MainActivity"
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,15 +24,15 @@ class MainActivity : ComponentActivity() {
 
             Column() {
                 var progress by remember {
-                    mutableStateOf(0f)
+                    mutableStateOf(0)
                 }
-                customProgress(progresVal = progress, canvasSize = 400.dp)
+                customProgress(progresVal = progress.toFloat(), canvasSize = 400.dp)
                 TextField(
-                    value = "$progress",
+                    value = progress.toString(),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     onValueChange = {
-                        if (it.toFloat() > 240) return@TextField
-                        if (it.isNotEmpty()) progress = it.toFloat()
+                        if (it.isNotEmpty()) progress = it.toInt() else progress = 0
+                        //    progress = if (it.toInt() < 241 && it != "") it.toInt() else 0
                     },
                 )
 

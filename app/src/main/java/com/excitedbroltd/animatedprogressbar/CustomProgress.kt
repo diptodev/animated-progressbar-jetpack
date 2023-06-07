@@ -1,8 +1,11 @@
 package com.excitedbroltd.animatedprogressbar
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -20,12 +23,16 @@ fun customProgress(
     canvasSize: Dp = 300.dp,
     progresVal: Float
 ) {
+    val sweepAngel by animateFloatAsState(
+        targetValue = progresVal,
+        animationSpec = tween(1000)
+    )
     Column(modifier = Modifier
         .size(canvasSize)
         .drawBehind {
             val componentSize = size / 1.25f
-            drawBackground(componentSize, 60.4f, 240f)
-            drawForeground(componentSize, 60.4f, progresVal)
+            drawBackground(componentSize, 120.4f, 240f)
+            drawForeground(componentSize, 120.4f, sweepAngel)
         }) {
 
     }
@@ -71,5 +78,5 @@ fun DrawScope.drawForeground(
 @Preview(showBackground = true)
 
 fun showBackground() {
-    customProgress(progresVal = 32f)
+    customProgress(progresVal = 0f)
 }
