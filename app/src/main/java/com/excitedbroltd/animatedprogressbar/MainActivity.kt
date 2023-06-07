@@ -31,8 +31,9 @@ class MainActivity : ComponentActivity() {
                     value = progress.toString(),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     onValueChange = {
-                        if (it.isNotEmpty()) progress = it.toInt() else progress = 0
-                        //    progress = if (it.toInt() < 241 && it != "") it.toInt() else 0
+                        progress =
+                            if (it.isNotEmpty()) if (it.toInt() < 241) it.toInt() else progress
+                            else 0
                     },
                 )
 
